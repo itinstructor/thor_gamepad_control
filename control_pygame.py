@@ -1,51 +1,66 @@
 from my_serial import read_thread
 from thor import Thor
 from threading import Thread
-from inputs import get_gamepad
-import keys
+import pygame
+
+pygame.init()
+pygame.joystick.init()
+if not pygame.joystick.get_count():
+    print("No Gamepad!")
+    exit(1)
+pygame.joystick.Joystick(0)
 
 thor = Thor()
 
 read_thread.start()  # run the serial listener in a separate thread
 while read_thread.is_alive():
     try:
-        event = get_gamepad()[0]
+        event = pygame.event.get()
     except KeyboardInterrupt:
         break
-    btn = f"{event.code} {event.state}"  # event from the gamepad
-    if "MSC" in btn or "SYN" in btn:
+    if not event:
         continue
-    # print(btn)
-    thor.event = btn  # to maintain stop if unpressed
+    ev = event[0]
+    t = ev.type
+    btn = None
+    if t == 1539:
+        btn = ev.button
+    if t == 1538:
+        btn = ev.value
+    if not btn:
+        continue
+    if t == 1540 or (t == 1548 and ev.value == (0, 0)):
+        thor.event = ""
+    print(btn)
     match btn:
         # the moving functions run in separate threads to be able to stop on unpressed key
-        case keys.L2:
+        case 6:
             Thread(target=thor.open_claw).start()
-        case keys.L1:
+        case 4:
             Thread(target=thor.close_claw).start()
-        case keys.RIGHT:
+        case (1, 0):
             Thread(target=thor.rotate_claw).start()
-        case keys.LEFT:
+        case (-1, 0):
             Thread(target=thor.rotate_claw_cw).start()
-        case keys.DOWN:
+        case (0, -1):
             Thread(target=thor.move_claw).start()
-        case keys.UP:
+        case (0, 1):
             Thread(target=thor.move_claw_b).start()
-        case keys.A_2:
+        case 1:
             Thread(target=thor.art_4).start()
-        case keys.Y_4:
+        case 3:
             Thread(target=thor.art_4_cw).start()
-        case keys.B_3:
+        case 2:
             Thread(target=thor.art_3).start()
-        case keys.X_1:
+        case 0:
             Thread(target=thor.art_3_b).start()
-        case keys.R1:
+        case 5:
             Thread(target=thor.art_2).start()
-        case keys.R2:
+        case 7:
             Thread(target=thor.art_2_b).start()
-        case keys.L_AN:
+        case 10:
             Thread(target=thor.art_1).start()
-        case keys.R_AN:
+        case 11:
             Thread(target=thor.art_1_cw).start()
-        case keys.START:
+        case 9:
             Thread(target=thor.home).start()

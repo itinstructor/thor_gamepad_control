@@ -34,18 +34,18 @@ class Thor:
         self.art1 = 0
 
     def open_claw(self):
-        while self.claw < CLAW_MAX and self.event != keys._L2:
+        while self.claw < CLAW_MAX and self.event != keys._L2 and self.event:
             self.claw += 1
             serial_write(f"M3 S{self.claw}")
 
     def close_claw(self):
-        while self.claw > CLAW_MIN and self.event != keys._L1:
+        while self.claw > CLAW_MIN and self.event != keys._L1 and self.event:
             self.claw -= 1  # step can be adjustable
             serial_write(f"M3 S{self.claw}")
             sleep(0.002)  # can be adjustable
 
     def rotate_claw(self):
-        while self.claw_rot < CLAW_ROT_MAX and self.event != keys._RIGHT:
+        while self.claw_rot < CLAW_ROT_MAX and self.event != keys._RIGHT and self.event:
             self.claw_rot += 1
             # y and x are needed to track positions for claw move and rotate functions together
             self.y += 1
@@ -54,7 +54,7 @@ class Thor:
             sleep(0.1)
 
     def rotate_claw_cw(self):
-        while self.claw_rot > CLAW_ROT_MIN and self.event != keys._LEFT:
+        while self.claw_rot > CLAW_ROT_MIN and self.event != keys._LEFT and self.event:
             self.claw_rot -= 1
             self.y -= 1
             self.z -= 1
@@ -62,7 +62,9 @@ class Thor:
             sleep(0.1)
 
     def move_claw(self):
-        while self.claw_move < CLAW_MOVE_MAX and self.event != keys._DOWN:
+        while (
+            self.claw_move < CLAW_MOVE_MAX and self.event != keys._DOWN and self.event
+        ):
             self.claw_move += 0.1
             self.y -= 0.1
             self.z += 0.1
@@ -70,7 +72,7 @@ class Thor:
             sleep(0.02)
 
     def move_claw_b(self):
-        while self.claw_move > CLAW_MOVE_MIN and self.event != keys._UP:
+        while self.claw_move > CLAW_MOVE_MIN and self.event != keys._UP and self.event:
             self.claw_move -= 0.1
             self.y += 0.1
             self.z -= 0.1
@@ -78,49 +80,49 @@ class Thor:
             sleep(0.02)
 
     def art_4(self):  # wrist rotation
-        while self.art4 < ART4_MAX and self.event != keys._A_2:
+        while self.art4 < ART4_MAX and self.event != keys._A_2 and self.event:
             self.art4 += 2
             serial_write(f"G0 X{self.art4}")
             sleep(0.1)
 
     def art_4_cw(self):
-        while self.art4 > ART4_MIN and self.event != keys._Y_4:
+        while self.art4 > ART4_MIN and self.event != keys._Y_4 and self.event:
             self.art4 -= 2
             serial_write(f"G0 X{self.art4}")
             sleep(0.1)
 
     def art_3(self):  # elbow
-        while self.art3 < ART3_MAX and self.event != keys._B_3:
+        while self.art3 < ART3_MAX and self.event != keys._B_3 and self.event:
             self.art3 += 1
             serial_write(f"G0 D{self.art3}")
             sleep(0.1)
 
     def art_3_b(self):
-        while self.art3 > ART3_MIN and self.event != keys._X_1:
+        while self.art3 > ART3_MIN and self.event != keys._X_1 and self.event:
             self.art3 -= 1
             serial_write(f"G0 D{self.art3}")
             sleep(0.1)
 
     def art_2(self):  # shoulder
-        while self.art2 < ART2_MAX and self.event != keys._R1:
+        while self.art2 < ART2_MAX and self.event != keys._R1 and self.event:
             self.art2 += 1
             serial_write(f"G0 B{self.art2} C{self.art2}")
             sleep(0.1)
 
     def art_2_b(self):
-        while self.art2 > ART2_MIN and self.event != keys._R2:
+        while self.art2 > ART2_MIN and self.event != keys._R2 and self.event:
             self.art2 -= 1
             serial_write(f"G0 B{self.art2} C{self.art2}")
             sleep(0.1)
 
     def art_1(self):  # rotate arm
-        while self.art1 < ART1_MAX and self.event != keys._L_AN:
+        while self.art1 < ART1_MAX and self.event != keys._L_AN and self.event:
             self.art1 += 2
             serial_write(f"G0 A{self.art1}")
             sleep(0.1)
 
     def art_1_cw(self):
-        while self.art1 > ART1_MIN and self.event != keys._R_AN:
+        while self.art1 > ART1_MIN and self.event != keys._R_AN and self.event:
             self.art1 -= 2
             serial_write(f"G0 A{self.art1}")
             sleep(0.1)
