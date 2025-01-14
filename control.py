@@ -1,15 +1,33 @@
+from pygame import joystick
 from my_serial import read_thread
 from thor import Thor
 from threading import Thread
-from inputs import get_gamepad
 import keys
+import sys
+
 
 thor = Thor()
 
 read_thread.start()  # run the serial listener in a separate thread
 while read_thread.is_alive():
     try:
-        event = get_gamepad()[0]
+        if sys.platform.startswith("win"):
+            import pygame
+
+            pygame.init()
+            pygame.joystick.init()
+            if not pygame.joystick.get_count():
+                print("No gamepad")
+                break
+            joystick = pygame.joystick.Joystick(0)
+            joystick.init()
+            event = pygame.event.get()[0]
+            print(event)
+            ...
+        else:
+            from inputs import get_gamepad
+
+            event = get_gamepad()[0]
     except KeyboardInterrupt:
         break
     btn = f"{event.code} {event.state}"  # event from the gamepad
