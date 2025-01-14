@@ -2,6 +2,7 @@ from my_serial import read_thread
 from thor import Thor
 from threading import Thread
 import pygame
+from time import sleep
 
 pygame.init()
 pygame.joystick.init()
@@ -15,6 +16,7 @@ thor = Thor()
 read_thread.start()  # run the serial listener in a separate thread
 while read_thread.is_alive():
     try:
+        sleep(0.01)
         _ = pygame.joystick.Joystick(0)
         event = pygame.event.get()
     except KeyboardInterrupt:
