@@ -15,6 +15,7 @@ thor = Thor()
 read_thread.start()  # run the serial listener in a separate thread
 while read_thread.is_alive():
     try:
+        _ = pygame.joystick.Joystick(0)
         event = pygame.event.get()
     except KeyboardInterrupt:
         break
@@ -22,16 +23,18 @@ while read_thread.is_alive():
         continue
     ev = event[0]
     t = ev.type
+    if t == 1540 or (t == 1538 and ev.value == (0, 0)):
+        thor.event = ""
+        continue
     btn = None
     if t == 1539:
         btn = ev.button
     if t == 1538:
         btn = ev.value
-    if not btn:
+    if btn is None:
         continue
-    if t == 1540 or (t == 1548 and ev.value == (0, 0)):
-        thor.event = ""
-    print(btn)
+    else:
+        thor.event = str(btn)
     match btn:
         # the moving functions run in separate threads to be able to stop on unpressed key
         case 6:
