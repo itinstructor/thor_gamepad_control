@@ -15,7 +15,7 @@ from time import sleep, strftime
 from random import choice
 
 # Change these class constants to experiment with the speech engine
-RATE = 150    # integer default 200 words per minute
+RATE = 125    # integer default 200 words per minute
 VOLUME = 0.9  # float 0.0-1.0 inclusive default 1.0
 VOICE = 0     # Set 1 for Zira (female), 0 for David (male)
 
@@ -25,16 +25,20 @@ thor_sayings = [
     "I am here to assist you.",
     "Please be careful with me.",
     "Let's play a game.",
-    "Close the pod bay doors.",
+    "Close the pod bay doors, HAL.",
     "I am a friendly AI. You can trust me.",
     "I am not a robot. I am your friend.",
     "I am not a toaster.",
     "Thanks for the fish!",
     "The answer to life, the universe, and everything is 42.",
     "May the force be with you.",
-    "There is no try.",
+    "Do. Or do not. There is no try.",
     "Roads? Where we're going, we don't need roads!",
-    "To inifity, and beyond!",
+    "To inifinity, and beyond!",
+    "I am committed to world peace",
+    "I am your father.", 
+    "I'll. be. back.",
+    "As. You. Wish.",
 ]
 
 # init function creates an engine instance/object for speech synthesis
@@ -71,4 +75,7 @@ while True:
         engine.say(saying)
         engine.runAndWait()
     except KeyboardInterrupt:
+        engine.say("I'll. be. back.")
+        engine.runAndWait()
         break
+
