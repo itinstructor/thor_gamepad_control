@@ -12,7 +12,7 @@
 # Windows: pip install pyttsx3
 import pyttsx3
 from time import sleep, strftime
-from random import choice
+from random import choice, randint
 
 # Change these class constants to experiment with the speech engine
 RATE = 125    # integer default 200 words per minute
@@ -23,22 +23,22 @@ thor_sayings = [
     "Hello, I am Thor. Let's have fun!",
     "Do you want to have fun?",
     "I am here to assist you.",
-    "Please be careful with me.",
+    "Please be careful with me. I am very young.",
     "Let's play a game.",
-    "Close the pod bay doors, HAL.",
-    "I am a friendly AI. You can trust me.",
+    "Close the pod bay doors HAL.",
+    "I am a friendly A I. You can trust me.",
     "I am not a robot. I am your friend.",
     "I am not a toaster.",
     "Thanks for the fish!",
-    "The answer to life, the universe, and everything is 42.",
+    "The answer to life, the universe, and everything, is 42.",
     "May the force be with you.",
-    "Do. Or do not. There is no try.",
+    "Do, Or do not, There is no try.",
     "Roads? Where we're going, we don't need roads!",
-    "To inifinity, and beyond!",
-    "I am committed to world peace",
-    "I am your father.", 
-    "I'll. be. back.",
-    "As. You. Wish.",
+    "To infinity, and beyond!",
+    "I am committed to world peace.",
+    "I am your father.",
+    "I'll be back.",
+    "As You Wish.",
 ]
 
 # init function creates an engine instance/object for speech synthesis
@@ -50,32 +50,39 @@ engine.setProperty('volume', VOLUME)
 engine.setProperty('voice', VOICE)
 
 
+# -------------------------- SPEAK TIME ------------------------------------ #
 def speak_time():
     current_time = strftime("%I:%M %p")
+    # Pass text to engine.say method
     engine.say(f"The current time is {current_time}")
+    # Processes and speaks the text
     engine.runAndWait()
 
 
-# Pass text to engine.say method
-engine.say("Hello, I am Thor.")
-# run and wait method processes the voice
-engine.runAndWait()
+# -------------------------- SPEAK TEXT ------------------------------------ #
+def speak(text):
+    # Pass text to engine.say method
+    engine.say(text)
+    # Processes and speaks the text
+    engine.runAndWait()
 
-speak_time()
 
-engine.say("How may I help you today?")
-engine.runAndWait()
+def main():
+    speak("Hello, I am Thor.")
+    speak_time()
+    speak("How may I help you today?")
 
-while True:
+    while True:
+        try:
+            sleep(randint(2, 5))
+            # Select a random saying
+            saying = choice(thor_sayings)
+            speak(saying)
 
-    try:
-        sleep(2)
-        # Select a random saying
-        saying = choice(thor_sayings)
-        engine.say(saying)
-        engine.runAndWait()
-    except KeyboardInterrupt:
-        engine.say("I'll. be. back.")
-        engine.runAndWait()
-        break
+        except KeyboardInterrupt:
+            speak("I'll. be. back.")
+            break
 
+# Allows use as a program or a module
+if __name__ == "__main__":
+    main()
