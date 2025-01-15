@@ -11,7 +11,7 @@
 # Linux:   pip3 install pyttsx3
 # Windows: pip install pyttsx3
 import pyttsx3
-from time import sleep
+from time import sleep, strftime
 from random import choice
 
 # Change these class constants to experiment with the speech engine
@@ -20,15 +20,21 @@ VOLUME = 0.9  # float 0.0-1.0 inclusive default 1.0
 VOICE = 0     # Set 1 for Zira (female), 0 for David (male)
 
 thor_sayings = [
-    "Hello, I am Thor.",
+    "Hello, I am Thor. Let's have fun!",
     "Do you want to have fun?",
     "I am here to assist you.",
     "Please be careful with me.",
     "Let's play a game.",
-    "Let's close the pod bay doors, HAL.",
+    "Close the pod bay doors.",
     "I am a friendly AI. You can trust me.",
     "I am not a robot. I am your friend.",
     "I am not a toaster.",
+    "Thanks for the fish!",
+    "The answer to life, the universe, and everything is 42.",
+    "May the force be with you.",
+    "There is no try.",
+    "Roads? Where we're going, we don't need roads!",
+    "To inifity, and beyond!",
 ]
 
 # init function creates an engine instance/object for speech synthesis
@@ -39,18 +45,27 @@ engine.setProperty('rate', RATE)
 engine.setProperty('volume', VOLUME)
 engine.setProperty('voice', VOICE)
 
+
+def speak_time():
+    current_time = strftime("%I:%M %p")
+    engine.say(f"The current time is {current_time}")
+    engine.runAndWait()
+
+
 # Pass text to engine.say method
 engine.say("Hello, I am Thor.")
 # run and wait method processes the voice
 engine.runAndWait()
 
+speak_time()
+
 engine.say("How may I help you today?")
 engine.runAndWait()
 
 while True:
-    try:
-        sleep(1)
 
+    try:
+        sleep(2)
         # Select a random saying
         saying = choice(thor_sayings)
         engine.say(saying)
