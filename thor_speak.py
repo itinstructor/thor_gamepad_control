@@ -74,14 +74,15 @@ def main():
 
     while True:
         try:
-            sleep(randint(2, 5))
+            sleep(randint(5, 15))
             # Select a random saying
             saying = choice(thor_sayings)
             speak(saying)
 
         except KeyboardInterrupt:
-            speak("I'll. be. back.")
+            speak("I'll be back.")
             break
+
 
 # Allows use as a program or a module
 if __name__ == "__main__":
