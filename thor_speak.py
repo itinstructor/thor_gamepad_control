@@ -12,6 +12,7 @@
 # Windows: pip install pyttsx3
 import pyttsx3
 from time import sleep, strftime
+from datetime import datetime
 from random import choice, randint
 
 # Change these class constants to experiment with the speech engine
@@ -51,12 +52,24 @@ engine.setProperty('voice', VOICE)
 
 
 # -------------------------- SPEAK TIME ------------------------------------ #
-def speak_time():
+def greeting():
+    hour = datetime.now().hour
+    if hour >= 6 and hour < 12:
+        speak("Good morning.")
+    elif hour >= 12 and hour < 18:
+        speak("Good afternoon.")
+    elif hour >= 18 and hour < 24:
+        speak("Good evening.")
+    else:
+        speak("Good night.")
+
+    speak("I am Thor.")
+
     current_time = strftime("%I:%M %p")
     # Pass text to engine.say method
-    engine.say(f"The current time is {current_time}")
-    # Processes and speaks the text
-    engine.runAndWait()
+    speak(f"The current time is {current_time}")
+
+    speak("How may I help you today?")
 
 
 # -------------------------- SPEAK TEXT ------------------------------------ #
@@ -68,10 +81,7 @@ def speak(text):
 
 
 def main():
-    speak("Hello, I am Thor.")
-    speak_time()
-    speak("How may I help you today?")
-
+    greeting()
     while True:
         try:
             sleep(randint(5, 15))
