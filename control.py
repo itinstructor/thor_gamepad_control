@@ -24,17 +24,17 @@ while read_thread.is_alive():
         case keys.L1:
             Thread(target=thor.close_claw).start()
         case keys.RIGHT:
-            Thread(target=thor.rotate_claw_cw).start()
-        case keys.LEFT:
             Thread(target=thor.rotate_claw).start()
+        case keys.LEFT:
+            Thread(target=thor.rotate_claw_cw).start()
         case keys.DOWN:
             Thread(target=thor.move_claw_b).start()
         case keys.UP:
             Thread(target=thor.move_claw).start()
         case keys.A_2:
-            Thread(target=thor.art_4_cw).start()
-        case keys.Y_4:
             Thread(target=thor.art_4).start()
+        case keys.Y_4:
+            Thread(target=thor.art_4_cw).start()
         case keys.B_3:
             Thread(target=thor.art_3_b).start()
         case keys.X_1:
@@ -44,8 +44,8 @@ while read_thread.is_alive():
         case keys.R2:
             Thread(target=thor.art_2).start()
         case keys.L_AN:
-            Thread(target=thor.art_1_cw).start()
-        case keys.R_AN:
             Thread(target=thor.art_1).start()
+        case keys.R_AN:
+            Thread(target=thor.art_1_cw).start()
         case keys.START:
             Thread(target=thor.home).start()

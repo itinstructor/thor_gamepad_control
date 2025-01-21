@@ -44,17 +44,17 @@ while read_thread.is_alive():
         case 4:
             Thread(target=thor.close_claw).start()
         case (1, 0):
-            Thread(target=thor.rotate_claw_cw).start()
-        case (-1, 0):
             Thread(target=thor.rotate_claw).start()
+        case (-1, 0):
+            Thread(target=thor.rotate_claw_cw).start()
         case (0, -1):
             Thread(target=thor.move_claw_b).start()
         case (0, 1):
             Thread(target=thor.move_claw).start()
         case 1:
-            Thread(target=thor.art_4_cw).start()
-        case 3:
             Thread(target=thor.art_4).start()
+        case 3:
+            Thread(target=thor.art_4_cw).start()
         case 2:
             Thread(target=thor.art_3_b).start()
         case 0:
@@ -64,8 +64,8 @@ while read_thread.is_alive():
         case 7:
             Thread(target=thor.art_2).start()
         case 10:
-            Thread(target=thor.art_1_cw).start()
-        case 11:
             Thread(target=thor.art_1).start()
+        case 11:
+            Thread(target=thor.art_1_cw).start()
         case 9:
             Thread(target=thor.home).start()

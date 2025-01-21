@@ -92,25 +92,25 @@ class Thor:
             sleep(0.1)
 
     def art_3(self):  # elbow
-        while self.art3 < ART3_MAX and self.event != keys._B_3 and self.event:
+        while self.art3 < ART3_MAX and self.event != keys._X_1 and self.event:
             self.art3 += 1
             serial_write(f"G0 D{self.art3}")
             sleep(0.1)
 
     def art_3_b(self):
-        while self.art3 > ART3_MIN and self.event != keys._X_1 and self.event:
+        while self.art3 > ART3_MIN and self.event != keys._B_3 and self.event:
             self.art3 -= 1
             serial_write(f"G0 D{self.art3}")
             sleep(0.1)
 
     def art_2(self):  # shoulder
-        while self.art2 < ART2_MAX and self.event != keys._R1 and self.event:
+        while self.art2 < ART2_MAX and self.event != keys._R2 and self.event:
             self.art2 += 1
             serial_write(f"G0 B{self.art2} C{self.art2}")
             sleep(0.1)
 
     def art_2_b(self):
-        while self.art2 > ART2_MIN and self.event != keys._R2 and self.event:
+        while self.art2 > ART2_MIN and self.event != keys._R1 and self.event:
             self.art2 -= 1
             serial_write(f"G0 B{self.art2} C{self.art2}")
             sleep(0.1)
