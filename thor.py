@@ -129,7 +129,7 @@ class Thor:
 
     def home(self):
         serial_write("M3 S500")
-        serial_write("G1 A0 B0 C0 D0 X0 Y0 Z0 F1000")
+        serial_write("G1 A0 B0 C0 D0 X0 Y0 Z0 F500")
         self.claw = 500
         self.y = self.z = self.claw_rot = self.claw_move = 0
         self.art4 = self.art3 = self.art2 = self.art1 = 0
