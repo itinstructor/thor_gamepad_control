@@ -2,7 +2,7 @@ from time import sleep
 from my_serial import serial_write
 import keys
 
-# movement limits
+# Movement limits
 CLAW_MIN = 0
 CLAW_MAX = 500
 CLAW_ROT_MIN = -13
