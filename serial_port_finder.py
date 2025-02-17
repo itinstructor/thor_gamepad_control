@@ -1,3 +1,10 @@
+"""
+    Name: serial_port_finder.py
+    Author:
+    Created:
+    Purpose: Find the serial port for an Arduino    
+"""
+
 # sys module to access system-specific parameters and functions
 import sys
 # glob module to find all the pathnames matching a specified pattern
@@ -30,19 +37,35 @@ def serial_ports():
 
     # Initialize an empty list to store the available serial ports
     result = []
-    for port in ports:  # Iterate over the list of ports
+
+    # Iterate over the list of ports
+    for port in ports:
         try:
             # Try to open the serial port
-            s = serial.Serial(port)  
-              # Close the serial port if it is successfully opened
+            s = serial.Serial(port)
+            # Close the serial port if it is successfully opened
             s.close()
-              # Add the port to the result list if it was successfully opened
+            # Add the port to the result list if it was successfully opened
             result.append(port)
-            
-        except (OSError, serial.SerialException):  # Handle exceptions
-            pass  # Ignore the exception and continue with the next port
-    return result  # Return the list of available serial ports
+
+        # Handle exceptions
+        except (OSError, serial.SerialException):
+            # Ignore the exception and continue with the next port
+            pass
+
+    # Return the list of available serial ports
+    return result
 
 
-if __name__ == '__main__':  # Check if the script is being run directly
-    print(serial_ports())  # Print the list of available serial ports
+def main():
+    """ Main function to test the serial_ports function """
+    # Call the serial_ports function to get the available ports
+    result = serial_ports()
+    # Print the available serial ports
+    print(f"Serial Ports: {result}")
+
+
+# Check if the script is run as the main program
+# Otherwise, it is being imported as a module
+if __name__ == '__main__':
+    main()
