@@ -1,3 +1,9 @@
+"""
+    Name: control_tkinter.py
+    Author:
+    Created:
+    Purpose: Main GUI for controlling Thor using a gamepad
+"""
 import tkinter as tk
 from tkinter import ttk
 from serial_port_finder import serial_ports
@@ -77,4 +83,3 @@ class SerialPortSelector(tk.Tk):
 
 if __name__ == "__main__":
     app = SerialPortSelector()
-    app.mainloop()
